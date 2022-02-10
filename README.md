@@ -231,7 +231,7 @@ Normal migrate oluşturfduğumuzda migration dosyası iki tane fonksiyon ile gel
     - ``` php artisan migration ```
 4. Tablomuz oluştu. 
 
-### Quiz Tablosuna DamiData Ekleme
+## Quiz Tablosuna DamiData Ekleme
 1. QuizSeeder oluşturma
     - ``` php artisan make:seeder QuizSeeder```
     - ```<?php
@@ -349,6 +349,13 @@ Normal migrate oluşturfduğumuzda migration dosyası iki tane fonksiyon ile gel
 6. Bu kurduğumuz yapı ile seeder larımızı istediğimiz yerde çağırabiliriz.
     - ``` php artisan db:seed --class=QuizSeeder ```
     - ``` php artisan db:seed --class=UserSeeder ```
+
+## Controller Oluşturmak
+Tüm quiz işlemlerimizi yapacağımız bir QuizController a ihtiyacımız var.
+- ``` php artisan make:controller Admin/QuizController ```
+**Resource Controller**
+**``` --resource ``` parametresi ile CRUD işlemlerini kapsayan Controller oluşturulur.**
+    - ``` php artisan make:controller Admin/QuizController --resorce```
 
 
 -------------------------------------------------------------------------------
