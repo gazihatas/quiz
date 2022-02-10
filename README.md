@@ -192,5 +192,162 @@ Route::group(['middleware' => ['auth', 'isAdmin'],'prefix' => 'admin',], functio
     public const HOME = '/panel';
 ```
 
+## Quiz Tablosu oluşturmak ve Migration işlemleri
 
+### migration işlemi ve fonksiyonları
+``` php artisan make:migration quiz_migration ```
+Normal migrate oluşturfduğumuzda migration dosyası iki tane fonksiyon ile geliyor.
+- up : migrate ettiğimizde tabloyu oluşturur
+- down : refresh ve destroy ettiğimizde bu kısım oluşturulur.
 
+### migration oluşturulduğunda içindeki fonksiyonların dolu gelmesi için 2 tane migration parametresi  vardır.
+1. --table parametresi
+    -  ``` php artisan make:migration quiz_migration --table="quizzes" ```
+    - --table parametresi up ve down fonksiyonlarına aynı schemayı verir.
+2. --create parametresi 
+    -  ``` php artisan make:migration quiz_migration --create="quizzes" ```
+    -  --create ile oluşturulduğunda down olduğunda silme komutunu ekler.
+
+**Bu iki yöntem de mantık olarak aynıdır. Fakat biz 2. yöntemi kullanacağız**
+ ``` php artisan make:migration quiz_migration --create="quizzes" ```
+
+### Quiz tablosunu oluşturmak
+1. Migration komutu ile tablomuzu oluşturacağımız dosyayı oluşturuyoruz.
+    - ``` php artisan make:migration quiz_migration --create="quizzes" ```
+2. OLuşan migration dosyamızın içinde tablomuzu oluşturuyoruz.
+    - ``` 
+    public function up()
+    {
+        //Temel quiz tablomuz
+        Schema::create('quizzes', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->longText('description')->nullable();
+            $table->enum('status',['publish','draft','passive'])->default('draft');
+            $table->timestamp('finished_at')->nullable();
+            $table->timestamps();
+        });
+    }
+    ```
+3. Migration işlemimizi gerçekleştiriyoruz.
+    - ``` php artisan migration ```
+4. Tablomuz oluştu. 
+
+### Quiz Tablosuna DamiData Ekleme
+1. QuizSeeder oluşturma
+    - ``` php artisan make:seeder QuizSeeder```
+    - ```<?php
+
+            namespace Database\Seeders;
+
+            use Illuminate\Database\Seeder;
+
+            class QuizSeeder extends Seeder
+            {
+                /**
+                * Run the database seeds.
+                *
+                * @return void
+                */
+                public function run()
+                {
+                    \App\Models\Quiz::factory(10)->create();
+                }
+            }
+        ```
+2. QuizFactory oluşturma
+    - ``` php artisan make:factory QuizFactory ```
+    - ``` <?php
+
+        namespace Database\Factories;
+
+        use App\Models\Quiz;
+        use Illuminate\Database\Eloquent\Factories\Factory;
+
+        class QuizFactory extends Factory
+        {
+            /**
+            * Define the model's default state.
+            *
+            * @return array
+            */
+
+            protected $model = Quiz::class;
+
+            public function definition()
+            {
+                //ilgili tablomuzun ilgili sutunlarına atamaları yapıyoruz
+                return [
+                    'title' => $this->faker->sentence(rand(3,7)),
+                    'description' => $this->faker->text(200),
+
+                ];
+            }
+        }
+        ```
+3. Quiz Model Oluşturma
+    - ``` php artisan make:model Quiz```
+    - ``` <?php
+
+            namespace Database\Factories;
+
+            use App\Models\Quiz;
+            use Illuminate\Database\Eloquent\Factories\Factory;
+
+            class QuizFactory extends Factory
+            {
+                /**
+                * Define the model's default state.
+                *
+                * @return array
+                */
+
+                protected $model = Quiz::class;
+
+                public function definition()
+                {
+                    //ilgili tablomuzun ilgili sutunlarına atamaları yapıyoruz
+                    return [
+                        'title' => $this->faker->sentence(rand(3,7)),
+                        'description' => $this->faker->text(200),
+
+                    ];
+                }
+            }
+        ```
+4.  UserSeed oluşturma
+    -  ``` php artisan make:seeder UserSeeders ```
+    - ``` <?php
+
+                namespace Database\Seeders;
+
+                use Illuminate\Database\Seeder;
+                use Illuminate\Support\Str;
+
+                class UserSeeder extends Seeder
+                {
+                    /**
+                    * Run the database seeds.
+                    *
+                    * @return void
+                    */
+                    public function run()
+                    {
+                        \App\Models\User::insert([
+                            'name' => 'Gazi Hataş',
+                            'email' => 'gazi@yandex.com',
+                            'email_verified_at' => now(),
+                            'type' => 'admin',
+                            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                            'remember_token' => Str::random(10),
+                            ]);
+
+                        \App\Models\User::factory(5)->create();
+                    }
+                }
+        ```
+5. Seed işlemlerimizi veri tabanımıza uyguluyoruz
+    - ``` php artisan migrate:fresh --seed ```
+6. Bu kurduğumuz yapı ile seeder larımızı istediğimiz yerde çağırabiliriz.
+    - ``` php artisan db:seed --class=QuizSeeder ```
+    - ``` php artisan db:seed --class=UserSeeder ```
