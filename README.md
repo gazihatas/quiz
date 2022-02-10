@@ -214,9 +214,8 @@ Normal migrate oluşturfduğumuzda migration dosyası iki tane fonksiyon ile gel
 ### Quiz tablosunu oluşturmak
 1. Migration komutu ile tablomuzu oluşturacağımız dosyayı oluşturuyoruz.
     - ``` php artisan make:migration quiz_migration --create="quizzes" ```
-2. OLuşan migration dosyamızın içinde tablomuzu oluşturuyoruz.
-    - ``` 
-    public function up()
+2. Oluşan migration dosyamızın içinde tablomuzu oluşturuyoruz.
+    - ``` public function up()
     {
         //Temel quiz tablomuz
         Schema::create('quizzes', function (Blueprint $table) {
@@ -227,8 +226,7 @@ Normal migrate oluşturfduğumuzda migration dosyası iki tane fonksiyon ile gel
             $table->timestamp('finished_at')->nullable();
             $table->timestamps();
         });
-    }
-    ```
+    } ```
 3. Migration işlemimizi gerçekleştiriyoruz.
     - ``` php artisan migration ```
 4. Tablomuz oluştu. 
@@ -351,3 +349,8 @@ Normal migrate oluşturfduğumuzda migration dosyası iki tane fonksiyon ile gel
 6. Bu kurduğumuz yapı ile seeder larımızı istediğimiz yerde çağırabiliriz.
     - ``` php artisan db:seed --class=QuizSeeder ```
     - ``` php artisan db:seed --class=UserSeeder ```
+
+
+-------------------------------------------------------------------------------
+Not: ``` php artisan make:model Quiz -a```
+**model, factory, migration, seeder, controller ı hepsini aynı anda oluşturur**
