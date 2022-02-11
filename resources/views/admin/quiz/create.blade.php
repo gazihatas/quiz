@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="header"> Quiz Oluştur</x-slot>
-
+        
     <div class="card">
         <div class="card-body">
             <form action="{{ route('quizzes.store')}}" method="POST">
             @csrf
                 <div class="form-group">
                     <label for="title">Quiz Başlıgı</label>
-                    <input type="text" id="title" name="title" class="form-control" required>
+                    <input type="text" id="title" name="title" class="form-control" >
                 </div>
                 
                 <div class="form-group">
@@ -16,13 +16,13 @@
                 </div>
                 
                 <div class="form-group">
-                    <input type="checkbox" id="isFinished">
+                    <input type="checkbox" id="isFinished" @if(old('finished_at')) checked @endif >
                     <label>Bitiş Tarihi Olacak Mı?</label>
                 </div>
 
-                <div class="form-group" style="display : none;" id="finishedInput">
-                    <label for="finished_at">Bitiş Tarihi</label>
-                    <input type="datetime-local" id="finished_at" name="finished_at" class="form-control">
+                <div class="form-group" id="finishedInput" @if(!old('finished_at')) style="display: none;" @endif>
+                    <label>Bitiş Tarihi</label>
+                    <input type="datetime-local" name="finished_at" class="form-control">
                 </div>
 
                 <div class="form-group">
@@ -35,9 +35,9 @@
         <script>
             $('#isFinished').change(function() {
                 if($('#isFinished').is(':checked')) {
-                    $('#isFinishedInput').show();
+                    $('#finishedInput').show();
                 } else{
-                    $('#isFinishedInput').hide();
+                    $('#finishedInput').hide();
                 }
             })
         </script>

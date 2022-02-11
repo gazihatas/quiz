@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Quiz;
+use App\Http\Requests\QuizCreateRequest;
+
 class QuizController extends Controller
 {
     /**
@@ -34,9 +36,15 @@ class QuizController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuizCreateRequest $request)
     {
-        return dd($request->post());
+        //Post edilem tüm verileri aldık.
+        //return dd($request->post());
+
+        // Post edilen verilerin veri tababnınına kayıt işlemi gerçekleşti.
+        Quiz::create($request->post());
+        // İşlemler bittikten sonra qizlerin görüntülendiği yani index metoduna yönlendiriyoruz.
+        return redirect()->route('quizzes.index')->withSuccess('Quiz Başarıyla Oluşturuldu');
     }
 
     /**

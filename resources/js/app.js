@@ -9,5 +9,5 @@ Alpine.start();
 require('jquery')
 
 import $ from 'jquery'
-windows.jQuery =$;
+window.jQuery = $;
 window.$ = $

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e6e5b270eb926a4c5225dbfa41f0622b",
+    "content-hash": "bb6fa629108d4d61190fffc64ecca108",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1059,6 +1059,60 @@
                 }
             ],
             "time": "2021-10-06T17:43:30+00:00"
+        },
+        {
+            "name": "herkod/laravel-tr",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/herkod/laravel-tr.git",
+                "reference": "26ec25524d7c0e8adc3b9bb982483d310dbbd859"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/herkod/laravel-tr/zipball/26ec25524d7c0e8adc3b9bb982483d310dbbd859",
+                "reference": "26ec25524d7c0e8adc3b9bb982483d310dbbd859",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^6.0||^7.0||^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Herkod\\AppServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Herkod\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Herkod",
+                    "email": "info@herkod.com"
+                }
+            ],
+            "description": "Laravel İçin Türkçe Çeviri Dosyaları",
+            "keywords": [
+                "lang",
+                "languages",
+                "laravel",
+                "localization",
+                "translation"
+            ],
+            "support": {
+                "issues": "https://github.com/herkod/laravel-tr/issues",
+                "source": "https://github.com/herkod/laravel-tr/tree/v1.0.1"
+            },
+            "time": "2021-10-19T11:43:52+00:00"
         },
         {
             "name": "jaybizzle/crawler-detect",
@@ -6195,12 +6249,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Facade\\Ignition\\": "src"
-                },
                 "files": [
                     "src/helpers.php"
-                ]
+                ],
+                "psr-4": {
+                    "Facade\\Ignition\\": "src"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -8003,16 +8057,16 @@
         },
         {
             "name": "sebastian/global-state",
-            "version": "5.0.3",
+            "version": "5.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/global-state.git",
-                "reference": "23bd5951f7ff26f12d4e3242864df3e08dec4e49"
+                "reference": "19c519631c5a511b7ed0ad64a6713fdb3fd25fe4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/23bd5951f7ff26f12d4e3242864df3e08dec4e49",
-                "reference": "23bd5951f7ff26f12d4e3242864df3e08dec4e49",
+                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/19c519631c5a511b7ed0ad64a6713fdb3fd25fe4",
+                "reference": "19c519631c5a511b7ed0ad64a6713fdb3fd25fe4",
                 "shasum": ""
             },
             "require": {
@@ -8055,7 +8109,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/global-state/issues",
-                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.3"
+                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.4"
             },
             "funding": [
                 {
@@ -8063,7 +8117,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-06-11T13:31:12+00:00"
+            "time": "2022-02-10T07:01:19+00:00"
         },
         {
             "name": "sebastian/lines-of-code",
