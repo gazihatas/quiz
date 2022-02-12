@@ -2,9 +2,15 @@
 <x-slot name="header">{{ $quiz->title}} Quizine ait Sorular</x-slot>
     <div class="card">
         <div class="card-body">
-                <h5 class="card-title">
+                
+                <h5 class="card-title" style="float:right;">
                     <a href="{{ route('questions.create',$quiz->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Soru Oluştur</a>
                 </h5>
+
+                <h5 class="card-title">
+                    <a href="{{ route('quizzes.index')}}" class="btn btn-sm btn-secondary"><i class="fa fa-arrow-left"></i> Quizlere Dön</a>
+                </h5>
+
                 <table class="table table-bordered table-sm">
                     <thead>
                     <tr>
@@ -34,7 +40,7 @@
                         <td>
                             
                             <a href="{{ route('questions.edit', [$quiz->id, $question->id]) }}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
-                            <a href="{{ route('quizzes.destroy', $question->id)}}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                            <a href="{{ route('questions.destroy', [$quiz->id, $question->id])}}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                     @endforeach
