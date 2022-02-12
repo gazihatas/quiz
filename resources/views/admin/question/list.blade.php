@@ -21,7 +21,11 @@
                     @foreach ($quiz->questions as$question)
                     <tr>  
                         <th> {{ $question->question }}</th>
-                        <td> {{ $question->image }}</td>
+                        <td> 
+                            @if ($question->image)
+                                <a href="{{ $question->image }}" target="_blank" class="btn btn-sm btn-light">Görüntüle</a>
+                            @endif
+                        </td>
                         <td> {{ $question->answer1 }}</td>
                         <td> {{ $question->answer2 }}</td>
                         <td> {{ $question->answer3 }}</td>
@@ -29,7 +33,7 @@
                         <td class="text-success"> {{ substr($question->correct_answer, -1) }}. Cevap</td>
                         <td>
                             
-                            <a href="{{ route('quizzes.edit', $question->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
+                            <a href="{{ route('questions.edit', [$quiz->id, $question->id]) }}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
                             <a href="{{ route('quizzes.destroy', $question->id)}}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>

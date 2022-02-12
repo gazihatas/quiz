@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Quiz;
 use App\Http\Requests\QuestionCreateRequest;
+use App\Http\Requests\QuestionUpdateRequest;
 use Illuminate\Support\Str;
 
 class QuestionController extends Controller
@@ -44,7 +45,7 @@ class QuestionController extends Controller
         if($request->hasFile('image'))
         {
             $fileName = Str::slug($request->question).'.'.$request->image->extension();
-            $fileNameWithUpload = 'uploads/' . $fileName;
+            $fileNameWithUpload = 'uploads/'.$fileName;
             $request->image->move(public_path('uploads'),$fileName);
             $request->merge([
                 'image' => $fileNameWithUpload
@@ -61,9 +62,9 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($quiz_id,$id)
+    public function show($id)
     {
-        return $quiz_id." - ".$id;
+        
     }
 
     /**
@@ -72,9 +73,10 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($quiz_id, $question_id)
     {
-        //
+        $question = Quiz::find($quiz_id)->questions()->whereId($question_id)->first() ?? abort(404, 'Quiz veya Soru Bulunamadı.');
+        return view('admin.question.edit',compact('question'));
     }
 
     /**
@@ -84,9 +86,20 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuestionUpdateRequest $request, $quiz_id, $question_id)
     {
-        //
+        if($request->hasFile('image'))
+        {
+            $fileName = Str::slug($request->question).'.'.$request->image->extension();
+            $fileNameWithUpload = 'uploads/'.$fileName;
+            $request->image->move(public_path('uploads'),$fileName);
+            $request->merge([
+                'image' => $fileNameWithUpload
+            ]);
+        }
+        Quiz::find($quiz_id)->questions()->whereId($question_id)->first()->update($request->post());
+
+        return redirect()->route('questions.index',$quiz_id)->withSuccess('Soru başarıyla güncellendi.');
     }
 
     /**
