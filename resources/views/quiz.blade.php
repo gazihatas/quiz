@@ -4,7 +4,8 @@
 <div class="div-card">
     <div class="card-body">
         
-            <form action="#" method="POST"  enctype="multipart/form-data">
+            <form action=" {{route('quiz.result', $quiz->slug)}} " method="POST"  enctype="multipart/form-data">
+                @csrf
                     @foreach ($quiz->questions as $question)
                         
                         <strong> {{$loop->iteration}} </strong> {{$question->question}}
