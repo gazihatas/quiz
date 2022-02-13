@@ -40,12 +40,7 @@ class QuizController extends Controller
         return view('admin.quiz.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(QuizCreateRequest $request)
     {
         //Post edilem tüm verileri aldık.
@@ -92,7 +87,7 @@ class QuizController extends Controller
     {
         $quiz = Quiz::find($id) ?? abort(404, "Quiz Bulunamadı");
         
-        Quiz::where('id', $id)->update($request->except(['_method','_token']));
+        Quiz::find($id)->update($request->except(['_method','_token']));
 
         return redirect()->route('quizzes.index')->withSuccess('Quiz güncelleme işlemi başarıyla gerçekleşti.');
         //return dd($request->all());

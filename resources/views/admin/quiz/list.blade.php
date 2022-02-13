@@ -50,13 +50,13 @@
                         <td> 
                             @switch($quiz->status)
                                 @case('publish')
-                                    <span class="badge badge-success">Aktif</span>
+                                    <span class="badge bg-success">Aktif</span>
                                 @break
                                 @case('passive')
-                                    <span class="badge badge-danger">Pasif</span>
+                                    <span class="badge bg-danger">Pasif</span>
                                 @break
                                 @case('draft')
-                                    <span class="badge badge-warning">Taslak</span>
+                                    <span class="badge bg-warning">Taslak</span>
                                 @break
                                 
                                     
