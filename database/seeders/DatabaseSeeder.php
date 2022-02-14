@@ -7,11 +7,7 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
+    
     public function run()
     {   
        //İstediğimiz seed dosyasını burada çağırıyoruz.
@@ -19,7 +15,8 @@ class DatabaseSeeder extends Seeder
                 UserSeeder::class,
                 QuizSeeder::class,
                 QuestionSeeder::class,
-                AnswerSeeder::class
+                AnswerSeeder::class,
+                ResultSeeder::class
         ]);
         
         
