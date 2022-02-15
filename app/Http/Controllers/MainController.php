@@ -23,7 +23,7 @@ class MainController extends Controller
 
     public function quiz_detail($slug)
     {
-        $quiz = Quiz::whereSlug($slug)->withCount('questions')->first() ?? abort(404, 'Quiz Bulunamadı');
+        $quiz = Quiz::whereSlug($slug)->with('my_result','results')->withCount('questions')->first() ?? abort(404, 'Quiz Bulunamadı');
         return view('quiz_detail', compact('quiz'));
     }
 
@@ -31,6 +31,11 @@ class MainController extends Controller
     {
         $quiz = Quiz::with('questions')->whereSlug($slug)->first() ?? abort(404, 'Quiz Bulunamadı');
         $correct = 0;
+
+        // Eğer kullanıcı quiz daha önceden girildiyse tekrar katılamaz.
+        if ($quiz->my_result) {
+            abort(404, "Bu Quiz'e daha önce katıldınız");
+        }
 
         //Sorulara verilen vevapları veritabanına kayıt ettik.
         foreach ($quiz->questions as $question) {
@@ -50,6 +55,7 @@ class MainController extends Controller
             }
         }
 
+        // Sınav sonucu hesaplama.
         $point = round((100 / count($quiz->questions)) * $correct);
         $wrong = count($quiz->questions) - $correct;
 

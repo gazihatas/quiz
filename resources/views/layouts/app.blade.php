@@ -54,6 +54,7 @@
                                 {{ session('success') }} 
                             </div>         
                     @endif
+                    
 
                         {{ $slot }}
                 </div>
