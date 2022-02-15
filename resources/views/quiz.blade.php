@@ -8,7 +8,7 @@
                 @csrf
                     @foreach ($quiz->questions as $question)
                         
-                        <strong> {{$loop->iteration}} </strong> {{$question->question}}
+                        <strong>#{{$loop->iteration}} </strong> {{$question->question}}
                         @if($question->image)
                             <img src="{{asset($question->image)}}" alt="img-responsive" width="30%" >
                         @endif
