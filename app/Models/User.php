@@ -19,6 +19,11 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
 
 
+    public function results()
+    {
+        return $this->hasMany('App\Models\Result');
+    }
+
     protected $fillable = [
         'name',
         'email',

@@ -11,8 +11,12 @@ use App\Models\Result;
 class MainController extends Controller
 {
     public function dashboard(){
-         $quizzes = Quiz::where('status', 'publish')->withCount('questions')->paginate(5);
-        return view('dashboard', compact('quizzes'));
+        $quizzes = Quiz::where('status', 'publish')->where(function($query){
+            $query->whereNull('finished_at')->orWhere('finished_at','>',now());
+        })->withCount('questions')->paginate(5);
+        
+        $results =  auth()->user()->results;
+        return view('dashboard', compact('quizzes','results'));
     }
 
     public function quiz($slug)

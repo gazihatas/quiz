@@ -53,6 +53,8 @@
                                 
                             </ul>
                             
+
+                            
                             @if(count($quiz->topTen)>0)
                                 <div class="card mt-3">
                                     <div class="card-body">
@@ -78,7 +80,7 @@
 
                             @if($quiz->my_result)
                             <a href="{{ route('quiz.join',$quiz->slug)}}" class="btn btn-warning btn-block btn-sm">Quiz'i Görüntüle</a>
-                            @else
+                            @elseif($quiz->finished_at>now())
                             <a href="{{ route('quiz.join',$quiz->slug)}}" class="btn btn-primary btn-block btn-sm">Quiz'e Katıl</a>
                             @endif
                     </div>
