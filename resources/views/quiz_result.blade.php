@@ -5,6 +5,7 @@
     <div class="card-body">
         
         {{-- Bilgilendirme Kısmı --}}
+        <h3>Puanın : <strong> {{$quiz->my_result->point}} </strong></h3>
         <div class="alert alert-light">
             <i class="fa fa-square"></i> İşaretlediğin Şık.
             <br>
@@ -22,12 +23,15 @@
                             <i class="fa fa-times text-danger"></i>
                         @endif    
 
-                        <strong>#{{$loop->iteration}} </strong> 
+                        <strong>#{{$loop->iteration}} </strong>      
                         
                         {{$question->question}}
                         @if($question->image)
                             <img src="{{asset($question->image)}}" alt="img-responsive" width="30%" >
                         @endif
+                        
+                        <br>
+                        <small>Bu soruya <strong>% {{$question->true_percent}}</strong> oranında doğru cevap verildi.</small>
 
                         {{-- CEVAP 1 --}}
                         <div class="form-check mt-2">
